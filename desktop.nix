@@ -8,6 +8,8 @@ in
   environment.systemPackages = with pkgs; [
     hyprland
     hyprpaper
+    hyprlock
+    hypridle
     foot
     firefox
     fuzzel

@@ -20,7 +20,9 @@ in
 
   programs.foot.enable = true;
   wayland.windowManager.hyprland.enable = true;
+  programs.hyprlock.enable = true;
   services.hyprpaper.enable = true;
+  services.hypridle.enable = true;
   programs.waybar.enable = true;
 
   # xdg portal config because waybar is shitting itself???
@@ -213,7 +215,74 @@ in
     bindm = $mod, mouse:272, movewindow
   '';
 
-  #hyprpaper
+  # hyprlock
+  programs.hyprlock.extraConfig = ''
+    background {
+      path = screenshot
+      blur_passes = 1
+      blur_size = 3
+    }
+
+    input-field {
+        monitor =
+        size = 250, 60
+        outline_thickness = 2
+        dots_size = 0.2 # Scale of input-field height, 0.2 - 0.8
+        dots_spacing = 0.35 # Scale of dots' absolute size, 0.0 - 1.0
+        dots_center = true
+        outer_color = rgba(235, 219, 178, 1)
+        inner_color = rgba(40, 40, 40, 1)
+        font_color = rgba(235, 219, 178, 1)
+        fade_on_empty = false
+        rounding = -1
+        check_color = rgb(204, 136, 34)
+        placeholder_text = <i><span foreground="##ebdbb2">put ur password poopy head</span></i>
+	fail_text = <i><span foreground="##ebdbb2">???</span></i>
+        hide_input = false
+        position = 0, -200
+        halign = center
+        valign = center
+    }
+
+    label {
+      monitor =
+      text = cmd[update:1000] echo "$(date +"%A, %B %d")"
+      color = rgba(235, 219, 178, 1)
+      font_size = 22
+      font_family = Martian Mono
+      position = 0, 300
+      halign = center
+      valign = center
+    }
+
+    label {
+      monitor = 
+      text = cmd[update:1000] echo "$(date +"%-I:%M")"
+      color = rgba(235, 219, 178, 1)
+      font_size = 95
+      font_family = Martian Mono
+      position = 0, 200
+      halign = center
+      valign = center
+    }
+  '';
+
+  # hypridle
+  services.hypridle.settings = {
+    general = {
+      after_sleep_cmd = "hyprctl dispatch dpms on";
+      ignore_dbus_inhibit = false;
+      lock_cmd = "hyprlock";
+    };
+    listener = [
+      {
+        timeout = 300;
+        on-timeout = "hyprlock";
+      }
+    ];
+  };
+
+  # hyprpaper
   services.hyprpaper.settings = {
     preload = [ "${homedir}/.config/wallpapers/kevin-wang-EuTlfLqYWp8-unsplash.jpg" ];
     wallpaper = [ ",${homedir}/.config/wallpapers/kevin-wang-EuTlfLqYWp8-unsplash.jpg" ];
