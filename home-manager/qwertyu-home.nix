@@ -257,7 +257,7 @@ in
 
     label {
       monitor = 
-      text = cmd[update:1000] echo "$(date +"%-I:%M")"
+      text = cmd[update:1000] echo "$(date +"%-H:%M")"
       color = rgba(235, 219, 178, 1)
       font_size = 95
       font_family = Martian Mono
