@@ -8,7 +8,6 @@
       ./hardware-configuration.nix
       ./dev.nix
       ./desktop.nix
-      ./nvidia-init.nix
     ];
 
   # Bootloader.

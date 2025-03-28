@@ -192,17 +192,6 @@ in
   wayland.windowManager.hyprland.extraConfig = ''
     exec-once = waybar & hyprpaper & dunst
 
-    env = LIBVA_DRIVER_NAME,nvidia
-    env = __GLX_VENDOR_LIBRARY_NAME,nvidia
-    env = NVD_BACKEND,direct
-
-    monitor = DP-1, 2560x1440@144, auto, auto
-    monitor = DP-2, 1920x1080@165, auto, auto
-    workspace = 1, monitor:DP-1
-    workspace = 2, monitor:DP-2
-    workspace = 3, monitor:DP-2
-    workspace = 4, monitor:DP-2
-
     animation = windows, 1, 7, myBezier
     animation = windowsOut, 1, 7, default, popin 80%
     animation = border, 1, 10, default
