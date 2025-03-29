@@ -25,7 +25,6 @@ in
     wl-clipboard
     gimp
     libsixel
-    prismlauncher
     vesktop
     steam
     kdePackages.dolphin
