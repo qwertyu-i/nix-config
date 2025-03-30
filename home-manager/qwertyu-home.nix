@@ -24,6 +24,8 @@ in
   services.hyprpaper.enable = true;
   services.hypridle.enable = true;
   programs.waybar.enable = true;
+  services.dunst.enable = true;
+  programs.fuzzel.enable = true;
 
   # xdg portal config because waybar is shitting itself???
   #xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
@@ -145,6 +147,11 @@ in
       "sensitivity" = "0";
     };
 
+    device = {
+      "name" = "tpps/2-elan-trackpoint";
+      "sensitivity" = "0.7";
+    };
+
     bind = [
       "$mod, Q, exec, $terminal"
       "$mod, C, killactive,"
@@ -187,9 +194,15 @@ in
     master = {
       "new_status" = "slave";
     };
+
+    misc = {
+      "force_default_wallpaper" = "0";
+    };
   };
 
   wayland.windowManager.hyprland.extraConfig = ''
+    monitor = eDP-1, 1920x1080@60, 0x0, 1
+
     exec-once = waybar & hyprpaper & dunst
 
     animation = windows, 1, 7, myBezier
@@ -206,6 +219,7 @@ in
 
   # hyprlock
   programs.hyprlock.extraConfig = ''
+
     background {
       path = screenshot
       blur_passes = 1
@@ -296,7 +310,7 @@ in
         "network"
         "pulseaudio"
         "cpu"
-        "temperature"
+        "battery"
         "memory"
         "clock"
       ];
@@ -354,11 +368,11 @@ in
         format = " {usage}%";
       };
 
-      "temperature" = {
+      "battery" = {
         format-icons = [
-          "" "" "" "" ""
+          "󰂎" "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹"
         ];
-        format = "{icon} {temperatureC}°C";
+        format = "{icon} {capacity}%";
       };
 
       "memory" = {
@@ -488,7 +502,7 @@ in
       background: #98971a;
     }
     
-    #temperature {
+    #battery {
       padding-left: 10px;
       padding-right: 10px;
       background: #d65d0e;
@@ -531,4 +545,169 @@ in
     viAlias = true;
     vimAlias = true;
   };
+
+  services.dunst.settings = {
+    global = {
+      monitor = "*";
+
+      follow = "mouse";
+
+      width = [ "200" "600" ];
+
+      height = 300;
+
+      origin = "top-right";
+
+      offset = "20x20";
+
+      scale = 0;
+
+      notification_limit = 20;
+
+      progress_bar = true;
+
+      progress_bar_height = 10;
+
+      progress_bar_frame_width = 1;
+
+      progress_bar_min_width = 150;
+
+      progress_bar_max_width = 300;
+
+      progress_bar_corner_radius = 0;
+
+      progress_bar_corners = "all";
+
+      icon_corner_radius = 0;
+
+      icon_corners = "all";
+
+      indicate_hidden = "yes";
+
+      transparency = 0;
+
+      separator_height = 2;
+
+      padding = 8;
+
+      horizontal_padding = 8;
+
+      text_icon_padding = 0;
+
+      frame_width = 3;
+
+      frame_color = "#ebdbb2";
+
+      gap_size = 0;
+
+      separator_color = "frame";
+
+      sort = "yes";
+
+      font = "Martian Mono";
+
+      line_height = 0;
+
+      markup = "full";
+
+      format = "<b>%s</b>\n%b";
+
+      alignment = "left";
+
+      vertical_alignment = "center";
+
+      show_age_threshold = 60;
+
+      ellipsize = "middle";
+
+      ignore_newline = "no";
+
+      stack_duplicates = true;
+
+      hide_duplicate_count = false;
+
+      show_indicators = "yes";
+
+      enable_recursive_icon_lookup = true;
+
+      icon_theme = "Adwaita";
+
+      icon_position = "left";
+
+      min_icon_size = 32;
+
+      max_icon_size = 64;
+
+      icon_path = "/usr/share/icons/gnome/16x16/status/:/usr/share/icons/gnome/16x16/devices/;";
+
+      sticky_history = "yes";
+
+      history_length = 20;
+
+      corner_radius = 4;
+
+      corners = "all";
+
+      ignore_dbusclose = false;
+
+      force_xwayland = false;
+
+      mouse_left_click = [ "do_action" "close_current" ];
+      mouse_middle_click = [ "close_all" ];
+      mouse_right_click = [ "close_current" ];
+    };
+
+    urgency_low = {
+      # IMPORTANT: colors have to be defined in quotation marks.
+      # Otherwise the "#" and following would be interpreted as a comment.
+      background = "#282828";
+      foreground = "#888888";
+      timeout = 10;
+      # Icon for notifications with low urgency, uncomment to enable
+      #default_icon = /path/to/icon
+    };
+
+    urgency_normal = {
+      background = "#282828";
+      foreground = "#ffffff";
+      timeout = 10;
+      override_pause_level = 30;
+      # Icon for notifications with normal urgency, uncomment to enable
+      #default_icon = /path/to/icon
+    };
+
+    urgency_critical = {
+      background = "#282828";
+      foreground = "#ffffff";
+      frame_color = "#ff0000";
+      timeout = 0;
+      override_pause_level = 60;
+      # Icon for notifications with critical urgency, uncomment to enable
+      #default_icon = /path/to/icon
+    };
+  };
+
+  programs.fuzzel.settings = {
+    main = {
+      font = "Martian Mono";
+    };
+
+    border = {
+      width = 2;
+      radius = 5;
+    };
+
+    colors = {
+      background      ="#282828ff";
+      text            ="#ebdbb2ff";
+      prompt          ="#458588ff";
+      input           ="#ebdbb2ff";
+      match           ="#458588ff";
+      selection       ="#ebdbb2ff";
+      selection-text  ="#282828ff";
+      selection-match ="#282828ff";
+      border          ="#ebdbb2ff";
+    };
+  };
+
 }

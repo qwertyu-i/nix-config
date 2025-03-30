@@ -13,10 +13,19 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.initrd.luks.devices.cryptroot.device = "/dev/disk/by-uuid/005db3e2-fe46-424b-a563-bf23e255da31";
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   networking.hostName = "QwertyuDesktop"; # Define your hostname.
+
+  services.tlp = {
+    enable = true;
+    settings = {
+      START_CHARGE_THRESH_BAT0 = 70;
+      STOP_CHARGE_THRESH_BAT0 = 80;
+    };
+  };
 
   # Enable networking
   networking.wireless.iwd.enable = true;
@@ -56,6 +65,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    usbutils
     wget
     iwd
     doas

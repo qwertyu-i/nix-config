@@ -11,7 +11,7 @@ in
     hyprlock
     hypridle
     foot
-    firefox
+    librewolf
     fuzzel
     dunst
     egl-wayland
@@ -30,6 +30,7 @@ in
     kdePackages.dolphin
     kdePackages.qtwayland
     wireguard-tools
+    brightnessctl
   ];
 
   xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
@@ -49,8 +50,8 @@ in
     "wallpapers" = {
       "/home/${user}/.config/wallpapers".d = {
         mode = "0751";
-	group = "users";
-	user = user;
+        group = "users";
+        user = user;
       };
     };
   };
@@ -59,9 +60,9 @@ in
     "grand-canyon-wallpaper" = {
       "/home/qwertyu/.config/wallpapers/kevin-wang-EuTlfLqYWp8-unsplash.jpg".L = {
         mode = "0777";
-	group = "users";
-	user = user;
-	argument = "/etc/nixos/wallpapers/kevin-wang-EuTlfLqYWp8-unsplash.jpg";
+        group = "users";
+        user = user;
+        argument = "/etc/nixos/wallpapers/kevin-wang-EuTlfLqYWp8-unsplash.jpg";
       };
     };
   };
